@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+
+{% block  content %}
+<form method="POST">
+    {% csrf_token %}
+    <h1>{{object.title}}</h1>
+<br>
+{{object.author}}
+<br>
+<img src="{{object.image.url}}" alt="No Image Found">
+<br>
+{{object.text}}
+
+<br>
+<input type="submit" value="Confirm Delete">
+</form>
+
+{% endblock content %}

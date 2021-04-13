@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+
+{% block  content %}
+
+{% if not object.published_date %}
+<a href="{% url 'blog:publish' object.id %}"><h1>Publish</h1></a>
+{% endif %}
+<h1>{{object.title}}</h1>
+<br>
+{{object.author}}
+<br>
+<img src="{{object.image.url}}" alt="No Image Found">
+<br>
+{{object.text}}
+
+<br>
+{{request.session.log_user}}
+{{object.author.username}}
+{% if request.session.log_user == object.author.username %}
+
+<a href="{% url 'blog:post_update' object.id %}"><h1>Update</h1></a>
+
+<a href="{% url 'blog:post_delete' object.id %}"><h1>Delete</h1></a>
+{% endif %}
+
+<a href="{% url 'blog:comments' object.id %}"><h3> Add Comment</h3> </a>
+
+{% for comment in object.comments.all %}
+
+<h3>{{comment.name}}</h3>
+<h3>{{comment.comment}}</h3>
+
+{% empty %}
+<h1>No Comments yet</h1>
+{% endfor %}
+{% endblock content %}
+
